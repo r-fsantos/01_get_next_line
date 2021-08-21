@@ -6,7 +6,7 @@
 /*   By: rfelicio <rfelicio@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 21:51:45 by rfelicio          #+#    #+#             */
-/*   Updated: 2021/08/20 16:12:05 by rfelicio         ###   ########.fr       */
+/*   Updated: 2021/08/21 00:07:17 by rfelicio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*get_next_line(int fd)
 {
 	char		*snippet;
 	char		*next_line;
-	static char	*buffer = NULL;
+	static char	*buffer = NULL; // static always starts with zero?
 
 	snippet = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, snippet, 0) IS_INVALID)
@@ -47,6 +47,7 @@ char	*get_next_line(int fd)
 	next_line = ft_get_line(&buffer);
 	if (!next_line)
 	{
+		free(buffer);
 		free(next_line);
 		next_line = NULL;
 	}
@@ -63,25 +64,31 @@ char	*get_next_line(int fd)
 */
 void	ft_less(int fd, char **stream)
 {
-	char	*buf;
+	char	*buf; // TODO REFACTOR: buf[BUFFER_SIZE]
 	char	*old_address;
 	ssize_t	bytesread;
 
-	buf = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	buf = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char)); // TODO: DRY!!!!!!!!
 	bytesread = read(fd, (void *)buf, BUFFER_SIZE);
-	if (buf && bytesread IS_VALID)
+	// if (bytesread < BUFFER_SIZE && *stream != NULL)
+	// if (bytesread == 0)
+	// {
+	// 	*stream[bytesread] = '\0';
+	// 	return ;
+	// }
+	if (buf && bytesread >= 0) //   IS_VALID)
 	{
 		buf[bytesread] = '\0';
 		while(!ft_strchr(buf, NEW_LINE) && bytesread IS_VALID)
 		{
 			old_address = *stream;
 			*stream = ft_strjoin(old_address, buf);
-			if (old_address)
+			if (old_address) // TODO: Remove this if, its redundant
 			{
 				free(old_address);
 				old_address = NULL;
 			}
-			bytesread = read(fd, (void *)buf, BUFFER_SIZE);
+			bytesread = read(fd, (void *)buf, BUFFER_SIZE); // TODO: DRY!!!!!!!!
 			buf[bytesread] = '\0';
 		}
 		old_address = *stream;
@@ -92,24 +99,24 @@ void	ft_less(int fd, char **stream)
 			old_address = NULL;
 		}
 	}
-	free(buf);
+	free(buf); // TODO REFACTOR: buf[BUFFER_SIZE]
 	buf = NULL;
 }
 
 char	*ft_get_line(char **stream)
 {
-	int		i;
+	int		len;
 	char	*line;
 	char	*snippet;
 
 	if(*stream == NULL || (*(*stream)) == '\0')
 		return (GNL_EOF);
-	i = 0;
+	len = 0;
 	snippet = *stream;
-	while (snippet[i] != '\n')
-		++i;
-	line = ft_substr(snippet, 0, i + 1);
-	*stream = ft_strjoin(snippet + i + 1, MOCK_DATA);
+	while (snippet[len] != '\n' && snippet[len] != '\0')
+		++len;
+	line = ft_substr(snippet, 0, len + 1);
+	*stream = ft_strjoin(snippet + len + 1, MOCK_DATA);
 	free(snippet);
 	return (line);
 }

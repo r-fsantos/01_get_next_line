@@ -6,7 +6,7 @@
 /*   By: rfelicio <rfelicio@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 19:41:15 by rfelicio          #+#    #+#             */
-/*   Updated: 2021/08/16 18:18:45 by rfelicio         ###   ########.fr       */
+/*   Updated: 2021/08/20 20:04:28 by rfelicio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,25 @@
 # endif
 
 # define NEW_LINE '\n'
-
-char	*get_next_line(int fd);
+# define GNL_EOF NULL
+# define TRUE 1
+# define MOCK_DATA ""
+# define IS_VALID > 0
+# define IS_INVALID == -1
 
 /*
-** Helpers/Utils
+** The complicated and little perfect GeNiLson.
 */
+char	*get_next_line(int fd);
+void	ft_less(int fd, char **stream);
+char	*ft_get_line(char **stream);
+/*
+** Many thanks to the helpers && utils, writen during the libft project.
+*/
+
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strdup(const char *str);
 size_t	ft_strlen(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 void	*ft_calloc(size_t count, size_t size);
