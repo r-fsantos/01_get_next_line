@@ -6,7 +6,7 @@
 /*   By: rfelicio <rfelicio@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 21:58:58 by rfelicio          #+#    #+#             */
-/*   Updated: 2021/08/21 21:29:42 by rfelicio         ###   ########.fr       */
+/*   Updated: 2021/08/21 22:59:23 by rfelicio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	return (dst);
 }
 
-
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
 	unsigned char	*dststart;
@@ -131,6 +130,7 @@ void	*ft_calloc(size_t count, size_t size)
 **		2. size_t len is bigger than ft_strlen(s) an start is correct.
 **		In this case, the len should be redefined.
 */
+// ft_strdup("");
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*str;
@@ -140,7 +140,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (NULL);
 	slen = ft_strlen(s);
 	if (!len || start > slen)
-		return ((char *)ft_calloc(1, sizeof(char))); // ft_strdup("");
+		return ((char *)ft_calloc(1, sizeof(char)));
 	if (len > (slen - start))
 		len = slen - start;
 	str = (char *)ft_calloc((len + 1), sizeof(char));

@@ -6,7 +6,7 @@
 /*   By: rfelicio <rfelicio@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 21:51:45 by rfelicio          #+#    #+#             */
-/*   Updated: 2021/08/21 00:07:17 by rfelicio         ###   ########.fr       */
+/*   Updated: 2021/08/21 23:19:20 by rfelicio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_less(int fd, char **stream);
 char	*ft_get_line(char **stream);
+
 /*
 ** DEVELOPMENT NOTES:
 ** 	- get_next_line protection:
@@ -41,7 +42,7 @@ char	*get_next_line(int fd)
 	next_line = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, next_line, 0) IS_INVALID)
 		return (NULL);
-	if (!ft_strchr(buffer, NEW_LINE)) // se eu ja tiver um buffer com \n, nesse momento
+	if (!ft_strchr(buffer, NEW_LINE))
 		ft_less(fd, &buffer);
 	next_line = ft_get_line(&buffer);
 	if (!next_line)
@@ -97,7 +98,7 @@ char	*ft_get_line(char **stream)
 	char	*snippet;
 
 	if (*stream == NULL || (*(*stream)) == '\0')
-		return (NULL); //(GNL_EOF);
+		return (GNL_EOF);
 	len = 0;
 	line = NULL;
 	snippet = *stream;
@@ -106,7 +107,7 @@ char	*ft_get_line(char **stream)
 	if (snippet[len] == '\n')
 		++len;
 	line = ft_substr(snippet, 0, len);
-	*stream = ft_strjoin(snippet + len, ""); //MOCK_DATA);
+	*stream = ft_strjoin(snippet + len, MOCK_DATA);
 	free(snippet);
 	return (line);
 }
