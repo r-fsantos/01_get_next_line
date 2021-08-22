@@ -35,14 +35,13 @@ char	*ft_get_line(char **stream);
 */
 char	*get_next_line(int fd)
 {
-	char		*snippet;
 	char		*next_line;
-	static char	*buffer = NULL; // static always starts with zero?
+	static char	*buffer = NULL;
 
-	snippet = NULL;
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, snippet, 0) IS_INVALID)
+	next_line = NULL;
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, next_line, 0) IS_INVALID)
 		return (NULL);
-	if (!ft_strchr(buffer, NEW_LINE))
+	if (!ft_strchr(buffer, NEW_LINE)) // se eu ja tiver um buffer com \n, nesse momento
 		ft_less(fd, &buffer);
 	next_line = ft_get_line(&buffer);
 	if (!next_line)
@@ -64,43 +63,31 @@ char	*get_next_line(int fd)
 */
 void	ft_less(int fd, char **stream)
 {
-	char	*buf; // TODO REFACTOR: buf[BUFFER_SIZE]
+	char	*buf;
 	char	*old_address;
 	ssize_t	bytesread;
 
-	buf = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char)); // TODO: DRY!!!!!!!!
-	bytesread = read(fd, (void *)buf, BUFFER_SIZE);
-	// if (bytesread < BUFFER_SIZE && *stream != NULL)
-	// if (bytesread == 0)
-	// {
-	// 	*stream[bytesread] = '\0';
-	// 	return ;
-	// }
-	if (buf && bytesread >= 0) //   IS_VALID)
+	buf = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (buf)
+		bytesread = read(fd, (void *)buf, BUFFER_SIZE);
+	if (buf && bytesread IS_VALID)
 	{
 		buf[bytesread] = '\0';
-		while(!ft_strchr(buf, NEW_LINE) && bytesread IS_VALID)
+		while (!ft_strchr(buf, NEW_LINE) && bytesread IS_VALID)
 		{
 			old_address = *stream;
-			*stream = ft_strjoin(old_address, buf);
-			if (old_address) // TODO: Remove this if, its redundant
-			{
+			*stream = ft_strjoin(*stream, buf);
+			if (old_address)
 				free(old_address);
-				old_address = NULL;
-			}
-			bytesread = read(fd, (void *)buf, BUFFER_SIZE); // TODO: DRY!!!!!!!!
+			bytesread = read(fd, (void *)buf, BUFFER_SIZE);
 			buf[bytesread] = '\0';
 		}
 		old_address = *stream;
-		*stream = ft_strjoin(old_address, buf);
+		*stream = ft_strjoin(*stream, buf);
 		if (old_address)
-		{
 			free(old_address);
-			old_address = NULL;
-		}
 	}
-	free(buf); // TODO REFACTOR: buf[BUFFER_SIZE]
-	buf = NULL;
+	free(buf);
 }
 
 char	*ft_get_line(char **stream)
@@ -109,14 +96,17 @@ char	*ft_get_line(char **stream)
 	char	*line;
 	char	*snippet;
 
-	if(*stream == NULL || (*(*stream)) == '\0')
-		return (GNL_EOF);
+	if (*stream == NULL || (*(*stream)) == '\0')
+		return (NULL); //(GNL_EOF);
 	len = 0;
+	line = NULL;
 	snippet = *stream;
 	while (snippet[len] != '\n' && snippet[len] != '\0')
 		++len;
-	line = ft_substr(snippet, 0, len + 1);
-	*stream = ft_strjoin(snippet + len + 1, MOCK_DATA);
+	if (snippet[len] == '\n')
+		++len;
+	line = ft_substr(snippet, 0, len);
+	*stream = ft_strjoin(snippet + len, ""); //MOCK_DATA);
 	free(snippet);
 	return (line);
 }
