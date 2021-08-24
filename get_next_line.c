@@ -6,7 +6,7 @@
 /*   By: rfelicio <rfelicio@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 21:51:45 by rfelicio          #+#    #+#             */
-/*   Updated: 2021/08/21 23:19:20 by rfelicio         ###   ########.fr       */
+/*   Updated: 2021/08/23 22:26:05 by rfelicio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,30 +102,12 @@ char	*ft_get_line(char **stream)
 	len = 0;
 	line = NULL;
 	snippet = *stream;
-	while (snippet[len] != '\n' && snippet[len] != '\0')
+	while (snippet[len] != NEW_LINE && snippet[len] != '\0')
 		++len;
-	if (snippet[len] == '\n')
+	if (snippet[len] == NEW_LINE)
 		++len;
 	line = ft_substr(snippet, 0, len);
 	*stream = ft_strjoin(snippet + len, MOCK_DATA);
 	free(snippet);
 	return (line);
 }
-
-// try to remove this from here in the future... 
-// if(!buffer)
-// 	buffer = ft_strdup("");
-// snippet = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
-// if (!snippet)
-// 	return (NULL);
-// // write helper from this point...  hp_read_line
-// bytesread = 1;
-// bytesread = read(fd, (void *)snippet, BUFFER_SIZE);
-// i = 0;
-// while (snippet[i] != '\n' && snippet[i] != '\0' && bytesread)
-// 	++i;
-// // TODO: Check for previous values on the buffer. If there are any
-// next_line = ft_substr((char const *)snippet, 0, i);
-// return (next_line);
-// ft_less(fd, &buffer);
-// next_line = ft_get_line(&buffer);
