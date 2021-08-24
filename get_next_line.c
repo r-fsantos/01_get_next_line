@@ -6,7 +6,7 @@
 /*   By: rfelicio <rfelicio@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 21:51:45 by rfelicio          #+#    #+#             */
-/*   Updated: 2021/08/23 22:26:05 by rfelicio         ###   ########.fr       */
+/*   Updated: 2021/08/24 00:20:45 by rfelicio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,6 @@
 void	ft_less(int fd, char **stream);
 char	*ft_get_line(char **stream);
 
-/*
-** DEVELOPMENT NOTES:
-** 	- get_next_line protection:
-** 		- fd < 0; BUFFER_SIZE <= 0;
-**		- snippet pointer protection;
-**		- error on read, when reading 0 bytes;
-**	- checks if static var contains '\n'
-**		- true: 
-**			- copiar pra linha que vou retornar?
-**			- ler o proximo buffer e apender;
-**		- false:
-**			- ler o proximo buffer
-**
-**	- ler até encontrar uma linha
-**	- read(fd, (void *)nextline, BUFFER_SIZE)
-**		- Consideracoes:
-**			- Se dentro do nextline eu tiver um \n e mais caracteres, i.e.:
-**			  while(nextline[i] != NEW_LINE && nextline[i] != NULL) ++i;
-*/
 char	*get_next_line(int fd)
 {
 	char		*next_line;
