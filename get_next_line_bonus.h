@@ -6,24 +6,24 @@
 /*   By: rfelicio <rfelicio@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 19:41:15 by rfelicio          #+#    #+#             */
-/*   Updated: 2021/08/24 17:53:21 by rfelicio         ###   ########.fr       */
+/*   Updated: 2021/08/24 18:13:01 by rfelicio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include "unistd.h"
 # include "stdlib.h"
 # include <limits.h>
 
-#  ifndef BUFFER_SIZE
-#   define BUFFER_SIZE 1000
-#  endif
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1000
+# endif
 
-#  ifndef OPEN_MAX
-#   define OPEN_MAX 256
-#  endif
+# ifndef OPEN_MAX
+#  define OPEN_MAX 256
+# endif
 
 # define NEW_LINE '\n'
 # define GNL_EOF NULL

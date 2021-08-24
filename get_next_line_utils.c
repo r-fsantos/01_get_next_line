@@ -6,7 +6,7 @@
 /*   By: rfelicio <rfelicio@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 21:58:58 by rfelicio          #+#    #+#             */
-/*   Updated: 2021/08/24 00:09:23 by rfelicio         ###   ########.fr       */
+/*   Updated: 2021/08/24 18:11:31 by rfelicio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	s1len = 0;
 	s2len = 0;
-	while(s1[s1len] != '\0')
+	while (s1[s1len] != '\0')
 		++s1len;
-	while(s2[s2len] != '\0')
+	while (s2[s2len] != '\0')
 		++s2len;
 	str = (char *)malloc((s1len + s2len + 1) * sizeof(char));
 	if (!str)
@@ -83,7 +83,7 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 */
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t 	i;
+	size_t	i;
 	size_t	slen;
 	char	*str;
 
@@ -91,7 +91,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (NULL);
 	i = 0;
 	slen = 0;
-	while(s[slen] != '\0')
+	while (s[slen] != '\0')
 		++slen;
 	if (!len || start > slen)
 		len = 0;
