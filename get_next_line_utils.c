@@ -6,7 +6,7 @@
 /*   By: rfelicio <rfelicio@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 21:58:58 by rfelicio          #+#    #+#             */
-/*   Updated: 2021/08/21 22:59:23 by rfelicio         ###   ########.fr       */
+/*   Updated: 2021/08/24 00:09:23 by rfelicio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,40 +36,19 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		s2 = "";
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
-	s1len = ft_strlen(s1);
-	s2len = ft_strlen(s2);
+	s1len = 0;
+	s2len = 0;
+	while(s1[s1len] != '\0')
+		++s1len;
+	while(s2[s2len] != '\0')
+		++s2len;
 	str = (char *)malloc((s1len + s2len + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
-	ft_memcpy(str, s1, s1len);
-	ft_memcpy(str + s1len, s2, s2len);
+	ft_memmove(str, s1, s1len);
+	ft_memmove(str + s1len, s2, s2len);
 	str[s1len + s2len] = '\0';
 	return (str);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i] != '\0')
-		++i;
-	return (i);
-}
-
-void	*ft_memcpy(void *dst, const void *src, size_t n)
-{
-	size_t	i;
-
-	if (!dst && !src)
-		return (NULL);
-	i = 0;
-	while (n--)
-	{
-		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
-		++i;
-	}
-	return (dst);
 }
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
@@ -82,40 +61,12 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	dststart = (unsigned char *)dst;
 	srcstart = (unsigned char *)src;
 	if (dststart <= srcstart)
-		ft_memcpy(dststart, srcstart, len);
+		while (len--)
+			*dststart++ = *srcstart++;
 	else
-	{
 		while (len--)
 			*(dststart + len) = *(srcstart + len);
-	}
 	return (dst);
-}
-
-void	*ft_memset(void *b, int c, size_t len)
-{
-	unsigned char	*ptr;
-
-	ptr = (unsigned char *)b;
-	while (len--)
-		*ptr++ = (unsigned char)c;
-	return (b);
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	if (n != 0)
-		ft_memset(s, 0, n);
-}
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	void	*mem;
-
-	mem = malloc(count * size);
-	if (!mem)
-		return (NULL);
-	ft_bzero(mem, count * size);
-	return (mem);
 }
 
 /*
@@ -130,21 +81,30 @@ void	*ft_calloc(size_t count, size_t size)
 **		2. size_t len is bigger than ft_strlen(s) an start is correct.
 **		In this case, the len should be redefined.
 */
-// ft_strdup("");
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*str;
+	size_t 	i;
 	size_t	slen;
+	char	*str;
 
 	if (!s)
 		return (NULL);
-	slen = ft_strlen(s);
+	i = 0;
+	slen = 0;
+	while(s[slen] != '\0')
+		++slen;
 	if (!len || start > slen)
-		return ((char *)ft_calloc(1, sizeof(char)));
+		len = 0;
 	if (len > (slen - start))
 		len = slen - start;
-	str = (char *)ft_calloc((len + 1), sizeof(char));
+	str = (char *)malloc((len + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
-	return ((char *)ft_memmove((void *)str, (void *)(s + start), len));
+	while (i < len && (start + i) < slen)
+	{
+		str[i] = s[start + i];
+		++i;
+	}
+	str[i] = '\0';
+	return (str);
 }
