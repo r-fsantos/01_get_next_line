@@ -6,7 +6,7 @@
 /*   By: rfelicio <rfelicio@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 21:51:45 by rfelicio          #+#    #+#             */
-/*   Updated: 2021/08/30 15:05:27 by rfelicio         ###   ########.fr       */
+/*   Updated: 2021/08/30 15:37:16 by rfelicio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 void	ft_less(int fd, char **stream);
 char	*ft_get_line(char **stream);
 
+/*
+** The complicated and little perfect GeNiLson.
+** Takes an opened file descriptor (fd) and returns a line from it.
+** If sucessful, get_next_line returns a string with a line ended or not with
+** the '\n' char.
+** In the presence of errors or when reaching the end of the file, returns NULL
+*/
 char	*get_next_line(int fd)
 {
 	char		*next_line;
@@ -77,6 +84,18 @@ void	ft_less(int fd, char **stream)
 	free(buf);
 }
 
+/*
+** Extracts a line to be returned by get_next_line(int fd).
+** First of all:
+**		- Checks if there is an error *stream == NULL OR
+**		if the EOF was reached. In both scenarios, returns NULL.
+**		- Sets the line len (Remembering that the line can contain the
+**		'\n' char or not);
+**		- If the line ends with '\n', line len should be updated.
+**		- Write the current line;
+**		- Removes it from the static char;
+**		- Performs memory management.
+*/
 char	*ft_get_line(char **stream)
 {
 	int		len;
@@ -95,5 +114,6 @@ char	*ft_get_line(char **stream)
 	line = ft_substr(snippet, 0, len);
 	*stream = ft_strjoin(snippet + len, MOCK_DATA);
 	free(snippet);
+	snippet = NULL;
 	return (line);
 }

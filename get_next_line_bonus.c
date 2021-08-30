@@ -6,7 +6,7 @@
 /*   By: rfelicio <rfelicio@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 21:51:45 by rfelicio          #+#    #+#             */
-/*   Updated: 2021/08/24 17:50:42 by rfelicio         ###   ########.fr       */
+/*   Updated: 2021/08/30 15:37:42 by rfelicio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@
 void	ft_less(int fd, char **stream);
 char	*ft_get_line(char **stream);
 
+/*
+** The complicated and little perfect ultimate GeNiLson.
+** Can takes more than one opened file descriptor (fd) and returns a line from
+** eacg one of them.
+** If sucessful, get_next_line returns a string with a line ended or not with
+** the '\n' char.
+** In the presence of errors or when reaching the end of the file, returns NULL
+*/
 char	*get_next_line(int fd)
 {
 	char		*next_line;
@@ -44,11 +52,16 @@ char	*get_next_line(int fd)
 
 /*
 ** Because less is more! RFTM: less ;)
-** This procedure only reads/unwrap the context of the file descriptor,
-** appending/updating it to the pointer stored of the static char.
+** This procedure reads/unwrap the content of the file pointed by the file
+** descriptor (fd), appending it to the pointer stored of the static char.
 ** This is made in this way:
-**		-
-**		-
+**		- Checks if buf and bytesread is valid
+**			- true:
+**				- Null terminate the read "string";
+**				- Reads until founds a '\n'char or the file ends. Either
+**				way, appends/joins the content read to the static variable.
+**			- false:
+**				- Memory deallocation.
 */
 void	ft_less(int fd, char **stream)
 {
@@ -79,6 +92,18 @@ void	ft_less(int fd, char **stream)
 	free(buf);
 }
 
+/*
+** Extracts a line to be returned by get_next_line(int fd).
+** First of all:
+**		- Checks if there is an error *stream == NULL OR
+**		if the EOF was reached. In both scenarios, returns NULL.
+**		- Sets the line len (Remembering that the line can contain the
+**		'\n' char or not);
+**		- If the line ends with '\n', line len should be updated.
+**		- Write the current line;
+**		- Removes it from the static char;
+**		- Performs memory management.
+*/
 char	*ft_get_line(char **stream)
 {
 	int		len;
@@ -97,5 +122,6 @@ char	*ft_get_line(char **stream)
 	line = ft_substr(snippet, 0, len);
 	*stream = ft_strdup(snippet + len);
 	free(snippet);
+	snippet = NULL;
 	return (line);
 }
