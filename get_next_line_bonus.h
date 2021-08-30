@@ -6,7 +6,7 @@
 /*   By: rfelicio <rfelicio@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 19:41:15 by rfelicio          #+#    #+#             */
-/*   Updated: 2021/08/30 14:48:32 by rfelicio         ###   ########.fr       */
+/*   Updated: 2021/08/30 14:53:05 by rfelicio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@
 char	*get_next_line(int fd);
 void	ft_less(int fd, char **stream);
 char	*ft_get_line(char **stream);
+
 /*
 ** Many thanks to the helpers && utils, writen during the libft project.
 */
-
 char	*ft_strdup(const char *str);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
