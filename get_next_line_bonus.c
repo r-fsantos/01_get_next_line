@@ -6,12 +6,11 @@
 /*   By: rfelicio <rfelicio@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 21:51:45 by rfelicio          #+#    #+#             */
-/*   Updated: 2021/08/30 15:37:42 by rfelicio         ###   ########.fr       */
+/*   Updated: 2021/08/30 15:40:33 by rfelicio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
-#include <stdio.h>
 
 void	ft_less(int fd, char **stream);
 char	*ft_get_line(char **stream);
