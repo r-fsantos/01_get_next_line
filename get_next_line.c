@@ -6,7 +6,7 @@
 /*   By: rfelicio <rfelicio@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 21:51:45 by rfelicio          #+#    #+#             */
-/*   Updated: 2021/08/24 00:20:45 by rfelicio         ###   ########.fr       */
+/*   Updated: 2021/08/30 15:05:27 by rfelicio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,16 @@ char	*get_next_line(int fd)
 
 /*
 ** Because less is more! RFTM: less ;)
-** This procedure only reads/unwrap the context of the file descriptor,
-** appending/updating it to the pointer stored of the static char.
+** This procedure reads/unwrap the content of the file pointed by the file
+** descriptor (fd), appending it to the pointer stored of the static char.
 ** This is made in this way:
-**		-
-**		-
+**		- Checks if buf and bytesread is valid
+**			- true:
+**				- Null terminate the read "string";
+**				- Reads until founds a '\n'char or the file ends. Either
+**				way, appends/joins the content read to the static variable.
+**			- false:
+**				- Memory deallocation.
 */
 void	ft_less(int fd, char **stream)
 {
