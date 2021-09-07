@@ -6,11 +6,11 @@
 /*   By: rfelicio <rfelicio@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 21:58:58 by rfelicio          #+#    #+#             */
-/*   Updated: 2021/08/24 18:10:46 by rfelicio         ###   ########.fr       */
+/*   Updated: 2021/09/07 10:36:30 by rfelicio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strdup(const char *s1)
 {
